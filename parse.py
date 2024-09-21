@@ -14,19 +14,27 @@ def read_csv(file_path):
         meet_date = data[1][0]
         meet_link = data[2][0]
         meet_summary = ""
+        team_results_string = "<table><tr><th>Position</th><th>Team</th><th>Score</th></tr>"
+
+        current_row = 0
 
         for i in range (0, len(data[3])):
             meet_summary = meet_summary + (data[3][i])
 
         #parse team results
-        team_results = []
-        for row in data[7]:
-            if not row:
+        for row in range(7, len(data)):
+            if not data[row]:
+                team_results_string = team_results_string + "</table>"
+                current_row = row
                 break
-            team_results.append(row)
-            row += 1
-        print(team_results)
-
+            place_string = data[row][0]
+            team_string = data[row][1]
+            score_string = data[row][2]
+            team_results_string = team_results_string + f"<tr><td>{place_string}</td><td>{team_string}</td><td>{score_string}</td></tr>"
+        
+        #parse athlete results
+        
+            
         
 
         html_content = f'''
@@ -59,7 +67,7 @@ def read_csv(file_path):
     <main>
         <section id="team-results">
             <h2>Team Results</h2>
-            <p>TODO</p>
+            {team_results_string}
         </section>
 
         <section id="athlete-results">
