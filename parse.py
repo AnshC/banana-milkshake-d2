@@ -15,7 +15,7 @@ def read_csv(file_path):
         meet_link = data[2][0]
         meet_summary = ""
         team_results_string = "<table><tr><th>Position</th><th>Team</th><th>Score</th></tr>"
-        athelete_result_string = "<table><tr><th>Place</th><th>Grade</th><th>Name</th><th>Time<th>Team</th></th></tr>"
+        athelete_result_string = "<table><tr><th>Place</th><th>Grade</th><th>Name</th><th>Time</th><th>Team</th></tr>"
         current_row = 0
 
         for i in range (0, len(data[3])):
@@ -33,10 +33,7 @@ def read_csv(file_path):
             team_results_string = team_results_string + f"<tr><td>{place_string}</td><td>{team_string}</td><td>{score_string}</td></tr>"
         
         #parse athlete results
-        for row in range(current_row + 2,len(data)):
-            if not data[row]:
-                athelete_result_string = athelete_result_string + "</table>"
-                break
+        for row in range(current_row + 2, len(data)):
             place_string = data[row][0]
             grade_string = data[row][1]
             name_string = data[row][2]
@@ -46,9 +43,9 @@ def read_csv(file_path):
             team_link_string = data[row][6]
             profile_string = "AthleteImages/" + data[row][7]
             
-            athelete_result_string = athelete_result_string + f"<tr><td>{place_string}</td><td>{grade_string}</td><td><div><img width = '100px' src='{profile_string}'alt={name_string}>{name_string}<a href='{athlete_link_string}'>Profile link</a></div></td><td>{time_string}</td><td>{team_string}<a href='{team_link_string}'</a></td></tr>"
+            athelete_result_string = athelete_result_string + f"<tr><td>{place_string}</td><td>{grade_string}</td><td><div><img width = '100px' src='{profile_string}'alt={name_string} />{name_string}<a href='{athlete_link_string}'>Profile link</a></div></td><td>{time_string}</td><td>{team_string}<a href='{team_link_string}'</a></td></tr>"
             
-        
+        athelete_result_string = athelete_result_string + "</table>"
 
         html_content = f'''
 <!DOCTYPE html>
