@@ -1,4 +1,5 @@
 import csv
+import os
 
 # File Locations
 path = 'meets/'
@@ -16,6 +17,7 @@ def read_csv(file_path):
         meet_summary = ""
         team_results_string = "<table><tr><th>Position</th><th>Team</th><th>Score</th></tr>"
         athelete_result_string = "<table><tr><th>Place</th><th>Grade</th><th>Name</th><th>Time</th><th>Team</th></tr>"
+        photo_gallery = "<table><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><tr>"
         current_row = 0
 
         for i in range (0, len(data[3])):
@@ -32,6 +34,8 @@ def read_csv(file_path):
             score_string = data[row][2]
             team_results_string = team_results_string + f"<tr><td>{place_string}</td><td>{team_string}</td><td>{score_string}</td></tr>"
         
+        temp = 0
+
         #parse athlete results
         for row in range(current_row + 2, len(data)):
             place_string = data[row][0]
@@ -40,14 +44,28 @@ def read_csv(file_path):
             athlete_link_string = data[row][3]
             time_string = data[row][4]
             team_string = data[row][5]
-            team_link_string = data[row][6]
+            # team_link_string = data[row][6]
             profile_string = "AthleteImages/" + data[row][7]
+
+            if (temp > 0 and temp%5 == 0):
+                photo_gallery = photo_gallery + f"</tr><tr>"
+                
+            else:
+                photo_gallery = photo_gallery + f"<td><img src={profile_string} alt={name_string} width='100px'></td>"
+            temp += 1
             
-            athelete_result_string = athelete_result_string + f"<tr><td>{place_string}</td><td>{grade_string}</td><td><div><img width = '100px' src='{profile_string}'alt={name_string} />{name_string}<a href='{athlete_link_string}'>Profile link</a></div></td><td>{time_string}</td><td>{team_string}<a href='{team_link_string}'</a></td></tr>"
+            
+            athelete_result_string = athelete_result_string + f"<tr><td>{place_string}</td><td>{grade_string}</td><td><div><img width = '100px' src='{profile_string}' alt='{name_string} Running' />{name_string}<a href='{athlete_link_string}'>Profile link</a></div></td><td>{time_string}</td><td>{team_string}</td></tr>"
             
         athelete_result_string = athelete_result_string + "</table>"
+        photo_gallery = photo_gallery + "</tr></table>"
+        
+
 
         html_content = f'''
+        
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +80,7 @@ def read_csv(file_path):
         <h1>{meet_name}</h1>
         <h2>{meet_date}</h2>
         <a href="{meet_link}">Link</a>
-        <p>Description: {meet_summary}</p>
+        <p>{meet_summary}</p>
 
 
         <nav>
@@ -87,7 +105,7 @@ def read_csv(file_path):
 
         <section id="gallery">
             <h2>Photo Gallery</h2>
-            <p>TODO</p>
+            {photo_gallery}
         </section>
     </main>
 
