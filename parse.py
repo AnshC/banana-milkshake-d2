@@ -14,7 +14,7 @@ def read_csv(file_path, output_file):
         meet_summary = ""
         team_results_string = "<table><tr><th>Position</th><th>Team</th><th>Score</th></tr>"
         athelete_result_string = "<table><tr><th>Place</th><th>Grade</th><th>Name</th><th>Time</th><th>Team</th></tr>"
-        photo_gallery = "<table><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><tr>"
+        photo_gallery = "<table><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><tr>"
         current_row = 0
 
         for i in range (0, len(data[3])):
@@ -70,7 +70,7 @@ def read_csv(file_path, output_file):
     <header>
         <h1>{meet_name}</h1>
         <h2>{meet_date}</h2>
-        <a href="{meet_link}">Link</a>
+        <a href="{meet_link}">Learn more about this event!</a>
         <p>{meet_summary}</p>
 
 
