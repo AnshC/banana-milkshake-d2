@@ -1,12 +1,9 @@
 import csv
 import os
+import argparse
 
-# File Locations
-path = 'meets/'
-meet_file = '37th_Early_Bird_Open_Mens_5000_Meters_HS_Open_5K_24.csv'
-output_file = meet_file.rstrip('.csv') + '.html'
 
-def read_csv(file_path):
+def read_csv(file_path, output_file):
     with open(file_path, newline='', encoding='utf-8') as file:
         reader = csv.reader(file)
         data = list(reader) 
@@ -23,7 +20,7 @@ def read_csv(file_path):
         for i in range (0, len(data[3])):
             meet_summary = meet_summary + (data[3][i])
 
-        #parse team results
+        # parse team results
         for row in range(7, len(data)):
             if not data[row]:
                 team_results_string = team_results_string + "</table>"
@@ -33,10 +30,10 @@ def read_csv(file_path):
             team_string = data[row][1]
             score_string = data[row][2]
             team_results_string = team_results_string + f"<tr><td>{place_string}</td><td>{team_string}</td><td>{score_string}</td></tr>"
-        
+
         temp = 0
 
-        #parse athlete results
+        # parse athlete results
         for row in range(current_row + 2, len(data)):
             place_string = data[row][0]
             grade_string = data[row][1]
@@ -49,23 +46,17 @@ def read_csv(file_path):
 
             if (temp > 0 and temp%5 == 0):
                 photo_gallery = photo_gallery + f"</tr><tr>"
-                
+
             else:
                 photo_gallery = photo_gallery + f"<td><img src={profile_string} alt={name_string} width='100px'></td>"
             temp += 1
-            
-            
+
             athelete_result_string = athelete_result_string + f"<tr><td>{place_string}</td><td>{grade_string}</td><td><div><img width = '100px' src='{profile_string}' alt='{name_string} Running' />{name_string}<a href='{athlete_link_string}'>Profile link</a></div></td><td>{time_string}</td><td>{team_string}</td></tr>"
-            
+
         athelete_result_string = athelete_result_string + "</table>"
         photo_gallery = photo_gallery + "</tr></table>"
-        
 
-
-        html_content = f'''
-        
-
-
+        html_content = f"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,15 +101,35 @@ def read_csv(file_path):
     </main>
 
     <footer>
-    THIS IS FOOTER!
+        <p>&copy; BANANA MILKSHAKE. All rights reserved.</p>
     </footer>
 </body>
 </html>
-        '''
+        """
 
         with open(output_file, 'w') as ofile:
             ofile.write(html_content)
 
-        
 
-read_csv(path + meet_file)
+def main():
+
+    # File Locations
+    default_meet_file = "37th_Early_Bird_Open_Mens_5000_Meters_HS_Open_5K_24.csv"
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "meet_file",
+        nargs="?",
+        default=default_meet_file,
+        help="The meet file name end with .csv",
+    )
+
+    args = parser.parse_args()
+    meet_file = args.meet_file
+
+    path = "meets/"
+    output_file = meet_file.rstrip(".csv") + ".html"
+    read_csv(path + meet_file, output_file)
+
+if __name__ == "__main__":
+    main()
