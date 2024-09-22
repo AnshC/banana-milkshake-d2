@@ -14,6 +14,6 @@ cd banana-milkshake-d2/
 ```
 
 3. run parse.py with ```python parse.py {filename}```
-```bash
+```properties
 python parse.py Bret_Clements_Bath_Invitational_Womens_5000_Meters_Class_1_24.csv
 ```
