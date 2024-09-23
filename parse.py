@@ -51,7 +51,7 @@ def read_csv(file_path, output_file):
                 photo_gallery = photo_gallery + f"<td><img src={profile_string} alt={name_string} width='100'></td>"
             temp += 1
 
-            athelete_result_string = athelete_result_string + f"<tr><td>{place_string}</td><td>{grade_string}</td><td><div class='athlete-profile'><img width = '100px' src='{profile_string}' alt='{name_string} Running'>{name_string}<a href='{athlete_link_string}'>Profile link</a></div></td><td>{time_string}</td><td>{team_string}</td></tr>"
+            athelete_result_string = athelete_result_string + f"<tr><td>{place_string}</td><td>{grade_string}</td><td><div class='athlete-profile'><img width = '100' src='{profile_string}' alt='{name_string} Running'>{name_string}<a href='{athlete_link_string}'>Profile link</a></div></td><td>{time_string}</td><td>{team_string}</td></tr>"
 
         athelete_result_string = athelete_result_string + "</table>"
         photo_gallery = photo_gallery + "</tr></table>"
