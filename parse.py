@@ -45,17 +45,17 @@ def read_csv(file_path, output_file):
             # team_link_string = data[row][6]
             alt_string = str(name_string + " Running")
             alt_string = alt_string.replace('"', "")
-            print(alt_string)
+
             profile_string = "AthleteImages/" + data[row][7]
 
             if (temp > 0 and temp%5 == 0):
                 photo_gallery = photo_gallery + f"</tr><tr>"
 
             else:
-                photo_gallery = photo_gallery + f"<td><img src={profile_string} alt=\"{name_string}\" width='100'></td>"
+                photo_gallery = photo_gallery + f"<td><img src={profile_string} alt=\"{alt_string}\" width='100'></td>"
             temp += 1
 
-            athelete_result_string = athelete_result_string + f"<tr><td>{place_string}</td><td>{grade_string}</td><td><div class='athlete-profile'><img width = '100' src={profile_string} alt=\"{alt_string}\">{name_string}<a href='{athlete_link_string}'>Profile link</a></div></td><td>{time_string}</td><td>{team_string}</td></tr>"
+            athelete_result_string = athelete_result_string + f"<tr><td>{place_string}</td><td>{grade_string}</td><td><div class='athlete-profile'><img width = '100' src={profile_string} alt=\"{alt_string}\"><p>{name_string}</p><a href='{athlete_link_string}'>Profile link</a></div></td><td>{time_string}</td><td>{team_string}</td></tr>"
 
         athelete_result_string = athelete_result_string + "</table>"
         photo_gallery = photo_gallery + "</tr></table>"
