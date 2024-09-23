@@ -44,7 +44,8 @@ def read_csv(file_path, output_file):
 
             # team_link_string = data[row][6]
             alt_string = str(name_string + " Running")
-            # print(alt_string)
+            alt_string = alt_string.replace('"', "")
+            print(alt_string)
             profile_string = "AthleteImages/" + data[row][7]
 
             if (temp > 0 and temp%5 == 0):
