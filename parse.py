@@ -14,7 +14,7 @@ def read_csv(file_path, output_file):
         meet_summary = ""
         team_results_string = "<table><tr><th>Position</th><th>Team</th><th>Score</th></tr>"
         athelete_result_string = "<table><tr><th>Place</th><th>Grade</th><th>Name</th><th>Time</th><th>Team</th></tr>"
-        photo_gallery = "<table><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><tr>"
+        photo_gallery = "<div class='photos'>"
         current_row = 0
 
         for i in range (0, len(data[3])):
@@ -48,17 +48,12 @@ def read_csv(file_path, output_file):
 
             profile_string = "AthleteImages/" + data[row][7]
 
-            if (temp > 0 and temp%5 == 0):
-                photo_gallery = photo_gallery + f"</tr><tr>"
-
-            else:
-                photo_gallery = photo_gallery + f"<td><img src={profile_string} alt=\"{alt_string}\" width='100'></td>"
-            temp += 1
+            photo_gallery = photo_gallery  + f"<img src={profile_string} alt=\"{alt_string}\" width='100'>"
 
             athelete_result_string = athelete_result_string + f"<tr><td>{place_string}</td><td>{grade_string}</td><td><div class='athlete-profile'><img width = '100' src={profile_string} alt=\"{alt_string}\"><p>{name_string}</p><a href='{athlete_link_string}'>Profile link</a></div></td><td>{time_string}</td><td>{team_string}</td></tr>"
 
         athelete_result_string = athelete_result_string + "</table>"
-        photo_gallery = photo_gallery + "</tr></table>"
+        photo_gallery = photo_gallery + "</div>"
 
         html_content = f"""
 <!DOCTYPE html>
